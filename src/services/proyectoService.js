@@ -16,11 +16,27 @@ let proyectos = [
         titulo: "Juego Educativo",
         categoria: "Web",
         estado: "En proceso"
+    },
+    {
+        id: 4,
+        titulo: "Sistema Escolar",
+        categoria: "Web",
+        estado: "Pendiente"    
+    },
+    {
+        id: 5,
+        titulo: "App de Ciencias",
+        categoria: "Mobile",
+        estado: "En proceso"
     }
 ];
 
 const obtenerProyectos = () => {
-    return proyectos;
+    return [...proyectos];
+};
+
+const agregarProyecto = (nuevo) => {
+    proyectos.push(nuevo);
 };
 
 const eliminarProyecto = (id) => {
@@ -35,6 +51,7 @@ const buscarProyecto = (texto) => {
 
 export default {
     obtenerProyectos,
+    agregarProyecto,
     eliminarProyecto,
     buscarProyecto
 };

@@ -1,7 +1,13 @@
-const Nav = () => (
+const Nav = () => {
+  return (
   <nav>
-    <a href="#">Inicio</a>
-    <a href="#">Proyectos</a>
+
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Proyectos</a></li>  
+    </ul>
+    
   </nav>
-);
+  );
+};
 export default Nav;

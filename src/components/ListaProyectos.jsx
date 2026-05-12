@@ -14,8 +14,11 @@ const ListaProyectos = () => {
         setProyectos(proyectoService.obtenerProyectos());
     };
 
+    // Buscar
     const handleBuscar = (e) => {
+
         const texto = e.target.value;
+
         setBusqueda(texto);
 
         if (texto === "") {
@@ -27,8 +30,41 @@ const ListaProyectos = () => {
 
     return (
         <div className="container">
+
             <h2>Gestión de Proyectos Educativos</h2>
 
+            {/* FORMULARIO */}
+            <div className="formulario">
+
+                <input
+                    type="text"
+                    placeholder="Título"
+                    value={titulo}
+                    onChange={(e) => setTitulo(e.target.value)}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Categoría"
+                    value={categoria}
+                    onChange={(e) => setCategoria(e.target.value)}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Estado"
+                    value={estado}
+                    onChange={(e) => setEstado(e.target.value)}
+                />
+
+                <button onClick={handleAgregar}>
+                    Agregar Proyecto
+                </button>
+
+            </div>
+
+            {/* BUSCADOR */}
+=======
             <input
                 type="text"
                 placeholder="Buscar proyecto..."
@@ -36,10 +72,16 @@ const ListaProyectos = () => {
                 onChange={handleBuscar}
             />
 
+            {/* LISTA */}
+=======
             <section className="grid-proyectos">
+
                 {proyectos.map((p) => (
+
                     <article key={p.id} className="card">
+
                         <div className="card-content">
+
                             <h3>{p.titulo}</h3>
 
                             <p>Categoría: {p.categoria}</p>
@@ -66,7 +108,9 @@ const ListaProyectos = () => {
                     </article>
                     
                 ))}
+
             </section>
+
         </div>
     );
 };

@@ -1,13 +1,17 @@
 import { useState } from "react";
-import proyectoService from "../services/proyectoService";
+import proyectoService from "../services/ProyectoService";
 
 const ListaProyectos = () => {
 
+<<<<<<< Updated upstream
     // Estado inicial
+=======
+>>>>>>> Stashed changes
     const [proyectos, setProyectos] = useState(
         proyectoService.obtenerProyectos()
     );
 
+<<<<<<< Updated upstream
     // Buscador
     const [busqueda, setBusqueda] = useState("");
 
@@ -17,12 +21,19 @@ const ListaProyectos = () => {
     const [estado, setEstado] = useState("");
 
     // Eliminar
+=======
+    const [busqueda, setBusqueda] = useState("");
+
+>>>>>>> Stashed changes
     const handleEliminar = (id) => {
         proyectoService.eliminarProyecto(id);
         setProyectos(proyectoService.obtenerProyectos());
     };
 
+<<<<<<< Updated upstream
     // Buscar
+=======
+>>>>>>> Stashed changes
     const handleBuscar = (e) => {
 
         const texto = e.target.value;
@@ -62,6 +73,7 @@ const ListaProyectos = () => {
 
             <h2>Gestión de Proyectos Educativos</h2>
 
+<<<<<<< Updated upstream
             {/* FORMULARIO */}
             <div className="formulario">
 
@@ -93,6 +105,8 @@ const ListaProyectos = () => {
             </div>
 
             {/* BUSCADOR */}
+=======
+>>>>>>> Stashed changes
             <input
                 type="text"
                 placeholder="Buscar proyecto..."
@@ -100,7 +114,10 @@ const ListaProyectos = () => {
                 onChange={handleBuscar}
             />
 
+<<<<<<< Updated upstream
             {/* LISTA */}
+=======
+>>>>>>> Stashed changes
             <section className="grid-proyectos">
 
                 {proyectos.map((p) => (

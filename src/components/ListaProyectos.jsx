@@ -9,12 +9,48 @@ const ListaProyectos = () => {
 
     const [busqueda, setBusqueda] = useState("");
 
-    const handleEliminar = (id) => {
-        proyectoService.eliminarProyecto(id);
-        setProyectos(proyectoService.obtenerProyectos());
+    const [titulo, setTitulo] = useState("");
+    const [categoria, setCategoria] = useState("");
+    const [estado, setEstado] = useState("En proceso");
+
+    const handleAgregar = () => {
+
+        if (
+            titulo.trim() === "" ||
+            categoria.trim() === ""
+        ) {
+            return;
+        }
+
+        const nuevoProyecto = {
+            id: Date.now(),
+            titulo,
+            categoria,
+            estado
+        };
+
+        proyectoService.agregarProyecto(
+            nuevoProyecto
+        );
+
+        setProyectos(
+            proyectoService.obtenerProyectos()
+        );
+
+        setTitulo("");
+        setCategoria("");
+        setEstado("En proceso");
     };
 
-    // Buscar
+    const handleEliminar = (id) => {
+
+        proyectoService.eliminarProyecto(id);
+
+        setProyectos(
+            proyectoService.obtenerProyectos()
+        );
+    };
+
     const handleBuscar = (e) => {
 
         const texto = e.target.value;
@@ -22,49 +58,87 @@ const ListaProyectos = () => {
         setBusqueda(texto);
 
         if (texto === "") {
-            setProyectos(proyectoService.obtenerProyectos());
+
+            setProyectos(
+                proyectoService.obtenerProyectos()
+            );
+
         } else {
-            setProyectos(proyectoService.buscarProyecto(texto));
+
+            setProyectos(
+                proyectoService.buscarProyecto(texto)
+            );
         }
     };
 
     return (
+
         <div className="container">
 
-            <h2>Gestión de Proyectos Educativos</h2>
+            <h2>
+                Gestión de Proyectos Educativos
+            </h2>
 
-            {/* FORMULARIO */}
             <div className="formulario">
 
                 <input
                     type="text"
-                    placeholder="Título"
+                    placeholder="Título del proyecto"
                     value={titulo}
-                    onChange={(e) => setTitulo(e.target.value)}
+                    onChange={(e) =>
+                        setTitulo(e.target.value)
+                    }
                 />
 
-                <input
-                    type="text"
-                    placeholder="Categoría"
+                <select
                     value={categoria}
-                    onChange={(e) => setCategoria(e.target.value)}
-                />
+                    onChange={(e) =>
+                        setCategoria(e.target.value)
+                    }
+                >
+                    <option value="">
+                        Seleccionar categoría
+                    </option>
 
-                <input
-                    type="text"
-                    placeholder="Estado"
+                    <option value="Web">
+                        Web
+                    </option>
+
+                    <option value="Mobile">
+                        Mobile
+                    </option>
+
+                    <option value="Escritorio">
+                        Escritorio
+                    </option>
+
+                </select>
+
+                <select
                     value={estado}
-                    onChange={(e) => setEstado(e.target.value)}
-                />
+                    onChange={(e) =>
+                        setEstado(e.target.value)
+                    }
+                >
+                    <option value="En proceso">
+                        En proceso
+                    </option>
 
-                <button onClick={handleAgregar}>
+                    <option value="Finalizado">
+                        Finalizado
+                    </option>
+
+                </select>
+
+                <button
+                    className="btn-add"
+                    onClick={handleAgregar}
+                >
                     Agregar Proyecto
                 </button>
 
             </div>
 
-            {/* BUSCADOR */}
-=======
             <input
                 type="text"
                 placeholder="Buscar proyecto..."
@@ -72,23 +146,27 @@ const ListaProyectos = () => {
                 onChange={handleBuscar}
             />
 
-            {/* LISTA */}
-=======
             <section className="grid-proyectos">
 
                 {proyectos.map((p) => (
 
-                    <article key={p.id} className="card">
+                    <article
+                        key={p.id}
+                        className="card"
+                    >
 
                         <div className="card-content">
 
                             <h3>{p.titulo}</h3>
 
-                            <p>Categoría: {p.categoria}</p>
+                            <p>
+                                Categoría: {p.categoria}
+                            </p>
 
                             <span
                                 className={`badge ${
-                                    p.estado === "Finalizado"
+                                    p.estado ===
+                                    "Finalizado"
                                         ? "done"
                                         : "process"
                                 }`}
@@ -100,13 +178,15 @@ const ListaProyectos = () => {
 
                         <button
                             className="btn-delete"
-                            onClick={() => handleEliminar(p.id)}
+                            onClick={() =>
+                                handleEliminar(p.id)
+                            }
                         >
                             Eliminar
                         </button>
 
                     </article>
-                    
+
                 ))}
 
             </section>

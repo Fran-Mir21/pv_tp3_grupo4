@@ -113,7 +113,14 @@ button {
     background-color: var(--color-secundario);
     color: white;
 }
-
+input {
+    color: black;
+}
+input {
+    color: black;
+    padding: 8px;
+    margin: 5px;
+}
 .btn-add:hover {
     transform: translateY(-2px);
     opacity: 0.95;

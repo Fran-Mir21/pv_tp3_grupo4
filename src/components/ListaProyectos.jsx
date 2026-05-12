@@ -3,23 +3,30 @@ import proyectoService from "../services/proyectoService";
 
 const ListaProyectos = () => {
 
-    // 🔹 Estado inicial (NO BORRAR)
+    // Estado inicial
     const [proyectos, setProyectos] = useState(
         proyectoService.obtenerProyectos()
     );
 
-    // 🔹 Estado del buscador
+    // Buscador
     const [busqueda, setBusqueda] = useState("");
 
-    // 🔹 Eliminar proyecto
+    // Formulario
+    const [titulo, setTitulo] = useState("");
+    const [categoria, setCategoria] = useState("");
+    const [estado, setEstado] = useState("");
+
+    // Eliminar
     const handleEliminar = (id) => {
         proyectoService.eliminarProyecto(id);
         setProyectos(proyectoService.obtenerProyectos());
     };
 
-    // 🔹 Buscar proyecto
+    // Buscar
     const handleBuscar = (e) => {
+
         const texto = e.target.value;
+
         setBusqueda(texto);
 
         if (texto === "") {
@@ -29,11 +36,63 @@ const ListaProyectos = () => {
         }
     };
 
+    // Agregar
+    const handleAgregar = () => {
+
+        const nuevoProyecto = {
+            id: Date.now(),
+            titulo,
+            categoria,
+            estado
+        };
+
+        proyectoService.agregarProyecto(nuevoProyecto);
+
+        setProyectos(
+            proyectoService.obtenerProyectos()
+        );
+
+        setTitulo("");
+        setCategoria("");
+        setEstado("");
+    };
+
     return (
         <div className="container">
+
             <h2>Gestión de Proyectos Educativos</h2>
 
-            {/* 🔍 BUSCADOR */}
+            {/* FORMULARIO */}
+            <div className="formulario">
+
+                <input
+                    type="text"
+                    placeholder="Título"
+                    value={titulo}
+                    onChange={(e) => setTitulo(e.target.value)}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Categoría"
+                    value={categoria}
+                    onChange={(e) => setCategoria(e.target.value)}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Estado"
+                    value={estado}
+                    onChange={(e) => setEstado(e.target.value)}
+                />
+
+                <button onClick={handleAgregar}>
+                    Agregar Proyecto
+                </button>
+
+            </div>
+
+            {/* BUSCADOR */}
             <input
                 type="text"
                 placeholder="Buscar proyecto..."
@@ -41,11 +100,15 @@ const ListaProyectos = () => {
                 onChange={handleBuscar}
             />
 
-            {/* 📦 LISTA */}
+            {/* LISTA */}
             <section className="grid-proyectos">
+
                 {proyectos.map((p) => (
+
                     <article key={p.id} className="card">
+
                         <div className="card-content">
+
                             <h3>{p.titulo}</h3>
 
                             <p>Categoría: {p.categoria}</p>
@@ -59,6 +122,7 @@ const ListaProyectos = () => {
                             >
                                 {p.estado}
                             </span>
+
                         </div>
 
                         <button
@@ -67,9 +131,13 @@ const ListaProyectos = () => {
                         >
                             Eliminar
                         </button>
+
                     </article>
+
                 ))}
+
             </section>
+
         </div>
     );
 };

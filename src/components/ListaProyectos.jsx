@@ -1,5 +1,7 @@
 import { useState } from "react";
 import proyectoService from "../services/proyectoService";
+import DetalleProyecto from "./DetalleProyecto";
+import ProyectoCard from "./ProyectoCard";
 
 const ListaProyectos = () => {
 
@@ -12,6 +14,7 @@ const ListaProyectos = () => {
     const [titulo, setTitulo] = useState("");
     const [categoria, setCategoria] = useState("");
     const [estado, setEstado] = useState("En proceso");
+    const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
 
     const handleAgregar = () => {
 
@@ -148,48 +151,27 @@ const ListaProyectos = () => {
 
             <section className="grid-proyectos">
 
-                {proyectos.map((p) => (
+{proyectos.map((p) => (
 
-                    <article
-                        key={p.id}
-                        className="card"
-                    >
+    <ProyectoCard
+        key={p.id}
+        proyecto={p}
+        onEliminar={handleEliminar}
+        onVerDetalle={setProyectoSeleccionado}
+    />
 
-                        <div className="card-content">
-
-                            <h3>{p.titulo}</h3>
-
-                            <p>
-                                Categoría: {p.categoria}
-                            </p>
-
-                            <span
-                                className={`badge ${
-                                    p.estado ===
-                                    "Finalizado"
-                                        ? "done"
-                                        : "process"
-                                }`}
-                            >
-                                {p.estado}
-                            </span>
-
-                        </div>
-
-                        <button
-                            className="btn-delete"
-                            onClick={() =>
-                                handleEliminar(p.id)
-                            }
-                        >
-                            Eliminar
-                        </button>
-
-                    </article>
-
-                ))}
+))}
 
             </section>
+            {
+    proyectoSeleccionado && (
+
+        <DetalleProyecto
+            proyecto={proyectoSeleccionado}
+        />
+
+    )
+}
 
         </div>
     );

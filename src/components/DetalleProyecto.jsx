@@ -1,5 +1,7 @@
 const DetalleProyecto = ({proyecto}) => {
-
+if (!proyecto) {
+    return <p>Seleccioná un proyecto</p>;
+}
     const {titulo,categoria,estado,descripcion,recursos,equipo} = proyecto;
 
     return (

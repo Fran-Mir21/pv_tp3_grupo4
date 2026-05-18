@@ -85,7 +85,7 @@ const handleAgregar = () => {
     </option>
 
     <option value="En curso">
-        En curso
+        En proceso
     </option>
 
     <option value="Pendiente">

@@ -2,7 +2,14 @@ const DetalleProyecto = ({proyecto}) => {
 if (!proyecto) {
    return null;
 }
-    const {titulo,categoria,estado,descripcion,recursos,equipo} = proyecto;
+    const {
+    titulo,
+    categoria,
+    estado,
+    descripcion = "Sin descripción",
+    recursos = [],
+    equipo = []
+} = proyecto;
 
     return (
 

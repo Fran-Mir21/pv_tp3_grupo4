@@ -1,6 +1,6 @@
 const DetalleProyecto = ({proyecto}) => {
 if (!proyecto) {
-    return <p>Seleccioná un proyecto</p>;
+   return null;
 }
     const {titulo,categoria,estado,descripcion,recursos,equipo} = proyecto;
 
@@ -35,7 +35,7 @@ if (!proyecto) {
 
             <ul>
 
-                {recursos.map((r, index) => (
+                {recursos?.map((r, index) => (
 
                     <li key={index}>
                         {r}
@@ -51,17 +51,17 @@ if (!proyecto) {
 
             <ul>
 
-                {equipo.map((persona, index) => (
+                {equipo?.map((persona, index) => (
 
-                    <li key={index}>
+    <li key={index}>
 
-                        {persona.nombre}
-                        {" - "}
-                        {persona.rol}
+        {persona.nombre}
+        {" - "}
+        {persona.rol}
 
-                    </li>
+    </li>
 
-                ))}
+))}
 
             </ul>
 

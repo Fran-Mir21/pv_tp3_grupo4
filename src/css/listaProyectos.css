@@ -109,9 +109,20 @@ input[type="text"]:focus {
 }
 .form-agregar{
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     align-items: center;
-    margin-bottom: 20px;
+}
+.form-agregar input,
+.form-agregar select,
+.form-agregar textarea {
+    padding: 10px;
+    font-size: 14px;
+    height: 40px;
+    box-sizing: border-box;
+}
+.form-agregar textarea {
+    resize: none;
 }
 .form-agregar button{
     padding: 10px 18px;

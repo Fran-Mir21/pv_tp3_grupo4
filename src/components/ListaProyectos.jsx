@@ -4,12 +4,10 @@ import ProyectoCard from "./ProyectoCard";
 import DetalleProyecto from "./DetalleProyecto";
 const ListaProyectos = () => {
 
-    // 🔹 Estado inicial (NO BORRAR)
     const [proyectos, setProyectos] = useState(
         proyectoService.obtenerProyectos()
     );
 
-    // 🔹 Estado del buscador
     const [busqueda, setBusqueda] = useState("");
     const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
 
@@ -17,13 +15,11 @@ const ListaProyectos = () => {
 const [categoria, setCategoria] = useState("");
 const [estado, setEstado] = useState("");
 
-    // 🔹 Eliminar proyecto
     const handleEliminar = (id) => {
         proyectoService.eliminarProyecto(id);
         setProyectos(proyectoService.obtenerProyectos());
     };
 
-    // 🔹 Buscar proyecto
     const handleBuscar = (e) => {
         const texto = e.target.value;
         setBusqueda(texto);
@@ -56,6 +52,24 @@ const handleAgregar = () => {
     setCategoria("");
     setEstado("");
 };
+    if (proyectoSeleccionado) {
+
+        return (
+
+            <DetalleProyecto
+
+                proyecto={
+                    proyectoSeleccionado
+                }
+
+                onVolver={() =>
+                    setProyectoSeleccionado(null)
+                }
+
+            />
+
+        );
+    }
     return (
         <div className="container">
             <h2>Gestión de Proyectos Educativos</h2>
@@ -103,7 +117,6 @@ const handleAgregar = () => {
     </button>
 
 </div>
-            {/* 🔍 BUSCADOR */}
             <input
                 type="text"
                 placeholder="Buscar proyecto..."
@@ -111,7 +124,6 @@ const handleAgregar = () => {
                 onChange={handleBuscar}
             />
 
-            {/* 📦 LISTA */}
             <section className="grid-proyectos">
                 {proyectos.map((p) => (
                   <ProyectoCard

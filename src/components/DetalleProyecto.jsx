@@ -1,4 +1,7 @@
-const DetalleProyecto = ({proyecto}) => {
+const DetalleProyecto = ({
+    proyecto,
+    onVolver
+}) => {
 if (!proyecto) {
    return null;
 }
@@ -51,6 +54,15 @@ if (!proyecto) {
                 ))}
 
             </ul>
+
+            <button
+                className="btn-back"
+                onClick={onVolver}
+            >
+
+                Volver
+
+            </button>
 
             <h3>
                 Equipo

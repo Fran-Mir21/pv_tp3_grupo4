@@ -55,15 +55,6 @@ if (!proyecto) {
 
             </ul>
 
-            <button
-                className="btn-back"
-                onClick={onVolver}
-            >
-
-                Volver
-
-            </button>
-
             <h3>
                 Equipo
             </h3>
@@ -83,6 +74,15 @@ if (!proyecto) {
 ))}
 
             </ul>
+
+            <button
+                className="btn-back"
+                onClick={onVolver}
+            >
+
+                Volver
+
+            </button>
 
         </section>
 

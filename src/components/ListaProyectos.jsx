@@ -12,8 +12,16 @@ const ListaProyectos = () => {
     const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
 
     const [titulo, setTitulo] = useState("");
-const [categoria, setCategoria] = useState("");
-const [estado, setEstado] = useState("");
+    const [categoria, setCategoria] = useState("");
+    const [estado, setEstado] = useState("");
+    const [descripcion, setDescripcion] =
+        useState("");
+
+    const [recursos, setRecursos] =
+        useState("");
+
+    const [equipo, setEquipo] =
+        useState("");
 
     const handleEliminar = (id) => {
         proyectoService.eliminarProyecto(id);
@@ -33,14 +41,34 @@ const [estado, setEstado] = useState("");
 const handleAgregar = () => {
 
     const nuevoProyecto = {
-    id: Date.now(),
-    titulo: titulo,
-    categoria: categoria,
-    estado: estado,
-    descripcion: "Sin descripción",
-    recursos: [],
-    equipo: []
-};
+
+        id: Date.now(),
+
+        titulo,
+
+        categoria,
+
+        estado,
+
+        descripcion,
+
+        recursos:
+            recursos.split(","),
+
+        equipo: [
+
+            {
+
+                nombre:
+                    equipo.split("-")[0],
+
+                rol:
+                    equipo.split("-")[1]
+
+            }
+
+        ]
+    };
 
     proyectoService.agregarProyecto(nuevoProyecto);
 
@@ -51,6 +79,9 @@ const handleAgregar = () => {
     setTitulo("");
     setCategoria("");
     setEstado("");
+    setDescripcion("");
+    setRecursos("");
+    setEquipo("");
 };
     if (proyectoSeleccionado) {
 
@@ -98,7 +129,7 @@ const handleAgregar = () => {
         Seleccionar estado
     </option>
 
-    <option value="En curso">
+    <option value="En proceso">
         En proceso
     </option>
 
@@ -111,6 +142,32 @@ const handleAgregar = () => {
     </option>
 
 </select>
+
+    <textarea
+        placeholder="Descripción"
+        value={descripcion}
+        onChange={(e) =>
+            setDescripcion(e.target.value)
+        }
+    />
+
+    <input
+        type="text"
+        placeholder="Recursos separados por coma"
+        value={recursos}
+        onChange={(e) =>
+            setRecursos(e.target.value)
+        }
+    />
+
+    <input
+        type="text"
+        placeholder="Equipo (nombre-rol)"
+        value={equipo}
+        onChange={(e) =>
+            setEquipo(e.target.value)
+        }
+    />
 
     <button onClick={handleAgregar}>
         Agregar Proyecto
@@ -134,8 +191,6 @@ const handleAgregar = () => {
                  />
                 ))}
             </section>
-            
-            <DetalleProyecto proyecto={proyectoSeleccionado} />
         </div>
     );
 };

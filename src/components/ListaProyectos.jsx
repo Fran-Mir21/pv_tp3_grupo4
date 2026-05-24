@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import proyectoService from "../services/proyectoService";
 import ProyectoCard from "./ProyectoCard";
 import DetalleProyecto from "./DetalleProyecto";
@@ -9,8 +9,13 @@ const ListaProyectos = () => {
         proyectoService.obtenerProyectos()
     );
     const [ultimaActualizacion, setUltimaActualizacion] = useState("");
+    const primeraCarga = useRef(true);
     const [busqueda, setBusqueda] = useState("");
     useEffect(() => {
+        if (primeraCarga.current) {
+    primeraCarga.current = false;
+    return;
+}
 
      const ahora = new Date();
 
@@ -209,7 +214,11 @@ const handleAgregar = () => {
                 ))}
             </section>
 
-            <RegistroActividad fecha={ultimaActualizacion} />
+            {
+    ultimaActualizacion && (
+        <RegistroActividad fecha={ultimaActualizacion} />
+    )
+}
         </div>
     );
 };

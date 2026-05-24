@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import proyectoService from "../services/proyectoService";
 import ProyectoCard from "./ProyectoCard";
 import DetalleProyecto from "./DetalleProyecto";
@@ -11,26 +11,34 @@ const ListaProyectos = () => {
     const [ultimaActualizacion, setUltimaActualizacion] = useState("");
     const primeraCarga = useRef(true);
     const [busqueda, setBusqueda] = useState("");
+
+    const proyectosFiltrados = useMemo(() => {
+        if (!busqueda) return proyectos;
+        return proyectos.filter((p) =>
+            p.titulo.toLowerCase().includes(busqueda.toLowerCase())
+        );
+    }, [proyectos, busqueda]);
+
     useEffect(() => {
         if (primeraCarga.current) {
-    primeraCarga.current = false;
-    return;
-}
+            primeraCarga.current = false;
+            return;
+        }
 
-     const ahora = new Date();
+        const ahora = new Date();
 
-     const fechaFormateada =
-     `${ahora.getDate().toString().padStart(2, "0")}/` +
-     `${(ahora.getMonth() + 1).toString().padStart(2, "0")}/` +
-     `${ahora.getFullYear()} a las ` +
-     `${ahora.getHours().toString().padStart(2, "0")}:` +
-     `${ahora.getMinutes().toString().padStart(2, "0")} hs.`;
+        const fechaFormateada =
+            `${ahora.getDate().toString().padStart(2, "0")}/` +
+            `${(ahora.getMonth() + 1).toString().padStart(2, "0")}/` +
+            `${ahora.getFullYear()} a las ` +
+            `${ahora.getHours().toString().padStart(2, "0")}:` +
+            `${ahora.getMinutes().toString().padStart(2, "0")} hs.`;
 
-     setUltimaActualizacion(
-     `Última actualización de la lista: ${fechaFormateada}`
-  );
+        setUltimaActualizacion(
+            `Última actualización de la lista: ${fechaFormateada}`
+        );
 
-}, [proyectos]);
+    }, [proyectos]);
     const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
 
     const [titulo, setTitulo] = useState("");
@@ -53,14 +61,9 @@ const ListaProyectos = () => {
     const handleBuscar = (e) => {
         const texto = e.target.value;
         setBusqueda(texto);
-
-        if (texto === "") {
-            setProyectos(proyectoService.obtenerProyectos());
-        } else {
-            setProyectos(proyectoService.buscarProyecto(texto));
-        }
     };
-const handleAgregar = () => {
+
+    const handleAgregar = () => {
 
     const nuevoProyecto = {
 
@@ -204,7 +207,7 @@ const handleAgregar = () => {
             />
 
             <section className="grid-proyectos">
-                {proyectos.map((p) => (
+                {proyectosFiltrados.map((p) => (
                   <ProyectoCard
                     key={p.id}
                     proyecto={p}

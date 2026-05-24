@@ -1,14 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import proyectoService from "../services/proyectoService";
 import ProyectoCard from "./ProyectoCard";
 import DetalleProyecto from "./DetalleProyecto";
+import RegistroActividad from "./RegistroActividad";
 const ListaProyectos = () => {
 
     const [proyectos, setProyectos] = useState(
         proyectoService.obtenerProyectos()
     );
-
+    const [ultimaActualizacion, setUltimaActualizacion] = useState("");
     const [busqueda, setBusqueda] = useState("");
+    useEffect(() => {
+
+     const ahora = new Date();
+
+     const fechaFormateada =
+     `${ahora.getDate().toString().padStart(2, "0")}/` +
+     `${(ahora.getMonth() + 1).toString().padStart(2, "0")}/` +
+     `${ahora.getFullYear()} a las ` +
+     `${ahora.getHours().toString().padStart(2, "0")}:` +
+     `${ahora.getMinutes().toString().padStart(2, "0")} hs.`;
+
+     setUltimaActualizacion(
+     `Última actualización de la lista: ${fechaFormateada}`
+  );
+
+}, [proyectos]);
     const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
 
     const [titulo, setTitulo] = useState("");
@@ -191,6 +208,8 @@ const handleAgregar = () => {
                  />
                 ))}
             </section>
+
+            <RegistroActividad fecha={ultimaActualizacion} />
         </div>
     );
 };

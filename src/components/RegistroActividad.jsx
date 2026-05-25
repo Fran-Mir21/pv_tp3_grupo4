@@ -1,4 +1,4 @@
-function RegistroActividad({ fecha }) {
+const RegistroActividad = ({ fecha }) => {
 
   return (
     <div>
@@ -6,6 +6,6 @@ function RegistroActividad({ fecha }) {
     </div>
   );
 
-}
+};
 
 export default RegistroActividad;

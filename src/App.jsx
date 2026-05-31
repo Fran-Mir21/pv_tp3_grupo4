@@ -1,9 +1,9 @@
 import Header from "./components/Header";
 import Nav from "./components/Nav";
-import ListaProyectos from "./components/ListaProyectos";
+import ListaProyectos from "./views/ListaProyectos";
+import Dashboard from "./views/Dashboard";
+import PerfilUsuario from "./views/PerfilUsuario";
 import Footer from "./components/Footer";
-import "./css/listaProyectos.css";
-import "./css/styles.css";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -13,8 +13,11 @@ function App() {
       <Nav />
       <main>
        <Routes>
-          <Route path="/proyectos" element={<ListaProyectos />} />
-       </Routes>
+  <Route path="/" element={<Dashboard />} />
+  <Route path="/dashboard" element={<Dashboard />} />
+  <Route path="/proyectos" element={<ListaProyectos />} />
+  <Route path="/perfil" element={<PerfilUsuario />} />
+</Routes>
       </main>
       <Footer />
     </>

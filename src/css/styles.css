@@ -1,52 +1,109 @@
+/* Variables globales adaptadas para TP3 */
 :root {
     --color-principal: #2c3e50;
     --color-secundario: #3498db;
     --color-fondo: #f4f4f4;
     --color-texto: #333;
     --color-blanco: #ffffff;
-    --fuente: Arial, sans-serif;
+    --color-exito: #27ae60;
+    --color-advertencia: #f39c12;
+    --color-error: #e74c3c;
+    --fuente: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+/* Estructura general */
+html, body {
     font-family: var(--fuente);
     background-color: var(--color-fondo);
     color: var(--color-texto);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
 }
 
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Encabezado */
 header {
     background-color: var(--color-principal);
-    color: white;
+    color: var(--color-blanco);
     text-align: center;
+    padding: 20px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+}
+
+/* Barra de navegación */
+nav {
+    background-color: var(--color-secundario);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenido principal */
+main {
+    flex: 1;
     padding: 20px;
 }
 
-nav {
-    background-color: var(--color-secundario);
-    padding: 12px;
+/* Footer */
+footer {
+    background-color: var(--color-principal);
+    color: var(--color-blanco);
+    text-align: center;
+    padding: 15px;
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-nav ul {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    list-style: none;
+/* ===== RESPONSIVE GLOBAL ===== */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    main {
+        padding: 15px;
+    }
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
+@media (max-width: 576px) {
+    header {
+        padding: 15px 10px;
+    }
 
-nav a:hover {
-    text-decoration: underline;
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    footer {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
 }
 
 footer {

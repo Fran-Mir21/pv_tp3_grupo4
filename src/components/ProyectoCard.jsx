@@ -1,6 +1,7 @@
 import { Card, Button, Badge } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const ProyectoCard = ({ proyecto, onEliminar, onVerDetalle }) => {
+const ProyectoCard = ({ proyecto, onEliminar }) => {
   const { id, titulo, categoria, estado } = proyecto;
 
   return (
@@ -17,13 +18,9 @@ const ProyectoCard = ({ proyecto, onEliminar, onVerDetalle }) => {
         </Badge>
 
         <div className="mt-3">
-          <Button
-            variant="primary"
-            className="me-2"
-            onClick={() => onVerDetalle(proyecto)}
-          >
+          <Link to={`/proyectos/${id}`} className="btn btn-primary me-2">
             Ver Detalle
-          </Button>
+          </Link>
 
           <Button
             variant="danger"

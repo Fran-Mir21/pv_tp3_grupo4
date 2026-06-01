@@ -3,11 +3,9 @@ import { NavLink } from "react-router-dom";
 
 const Menu = () => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="info" variant="dark" expand="lg" sticky="top">
       <Container>
-        <Navbar.Brand>Gestión de Proyectos</Navbar.Brand>
-
-        <Nav className="me-auto">
+        <Nav className="mx-auto">
           <Nav.Link as={NavLink} to="/dashboard">
             Inicio
           </Nav.Link>

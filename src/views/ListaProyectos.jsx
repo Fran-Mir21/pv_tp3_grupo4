@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import proyectoService from "../services/proyectoService";
 import ProyectoCard from "../components/ProyectoCard";
-import DetalleProyecto from "../components/DetalleProyecto";
 import RegistroActividad from "../components/RegistroActividad";
 import FormularioProyecto from "../components/FormularioProyecto";
 import { Container, Row, Col, Form } from "react-bootstrap";
@@ -42,7 +41,6 @@ const ListaProyectos = () => {
         );
 
     }, [proyectos]);
-    const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
 
     const handleEliminar = (id) => {
         proyectoService.eliminarProyecto(id);
@@ -58,28 +56,9 @@ const ListaProyectos = () => {
         proyectoService.agregarProyecto(nuevoProyecto);
         setProyectos(proyectoService.obtenerProyectos());
     };
-
-    if (proyectoSeleccionado) {
-
-        return (
-
-            <DetalleProyecto
-
-                proyecto={
-                    proyectoSeleccionado
-                }
-
-                onVolver={() =>
-                    setProyectoSeleccionado(null)
-                }
-
-            />
-
-        );
-    }
     return (
   <Container className="mt-4">
-    <h2 className="mb-4 text-white">
+    <h2 className="mb-4">
   Gestión de Proyectos Educativos
 </h2>
 
@@ -107,7 +86,6 @@ const ListaProyectos = () => {
           <ProyectoCard
             proyecto={p}
             onEliminar={handleEliminar}
-            onVerDetalle={setProyectoSeleccionado}
           />
         </Col>
       ))}

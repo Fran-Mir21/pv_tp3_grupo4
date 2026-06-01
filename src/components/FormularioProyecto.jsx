@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 const FormularioProyecto = ({ onAgregarProyecto }) => {
   const [titulo, setTitulo] = useState("");
@@ -21,9 +22,9 @@ const FormularioProyecto = ({ onAgregarProyecto }) => {
       equipo: [
         {
           nombre: equipo.split("-")[0] || "",
-          rol: equipo.split("-")[1] || ""
-        }
-      ]
+          rol: equipo.split("-")[1] || "",
+        },
+      ],
     };
 
     onAgregarProyecto(nuevoProyecto);
@@ -37,50 +38,72 @@ const FormularioProyecto = ({ onAgregarProyecto }) => {
   };
 
   return (
-    <form className="form-agregar" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Título"
-        value={titulo}
-        onChange={(e) => setTitulo(e.target.value)}
-      />
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3">
+        <Form.Label>Título</Form.Label>
+        <Form.Control
+          type="text"
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+        />
+      </Form.Group>
 
-      <input
-        type="text"
-        placeholder="Categoría"
-        value={categoria}
-        onChange={(e) => setCategoria(e.target.value)}
-      />
+      <Form.Group className="mb-3">
+        <Form.Label>Categoría</Form.Label>
+        <Form.Control
+          type="text"
+          value={categoria}
+          onChange={(e) => setCategoria(e.target.value)}
+        />
+      </Form.Group>
 
-      <select value={estado} onChange={(e) => setEstado(e.target.value)}>
-        <option value="">Seleccionar estado</option>
-        <option value="En proceso">En proceso</option>
-        <option value="Pendiente">Pendiente</option>
-        <option value="Finalizado">Finalizado</option>
-      </select>
+      <Form.Group className="mb-3">
+        <Form.Label>Estado</Form.Label>
+        <Form.Select
+          value={estado}
+          onChange={(e) => setEstado(e.target.value)}
+        >
+          <option value="">Seleccionar estado</option>
+          <option value="En proceso">En proceso</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="Finalizado">Finalizado</option>
+        </Form.Select>
+      </Form.Group>
 
-      <textarea
-        placeholder="Descripción"
-        value={descripcion}
-        onChange={(e) => setDescripcion(e.target.value)}
-      />
+      <Form.Group className="mb-3">
+        <Form.Label>Descripción</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={3}
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+        />
+      </Form.Group>
 
-      <input
-        type="text"
-        placeholder="Recursos separados por coma"
-        value={recursos}
-        onChange={(e) => setRecursos(e.target.value)}
-      />
+      <Form.Group className="mb-3">
+        <Form.Label>Recursos</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Separados por coma"
+          value={recursos}
+          onChange={(e) => setRecursos(e.target.value)}
+        />
+      </Form.Group>
 
-      <input
-        type="text"
-        placeholder="Equipo (nombre-rol)"
-        value={equipo}
-        onChange={(e) => setEquipo(e.target.value)}
-      />
+      <Form.Group className="mb-3">
+        <Form.Label>Equipo</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="nombre-rol"
+          value={equipo}
+          onChange={(e) => setEquipo(e.target.value)}
+        />
+      </Form.Group>
 
-      <button type="submit">Agregar Proyecto</button>
-    </form>
+      <Button variant="success" type="submit">
+        Agregar Proyecto
+      </Button>
+    </Form>
   );
 };
 

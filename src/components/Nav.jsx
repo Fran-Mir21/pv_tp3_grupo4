@@ -1,23 +1,28 @@
+import { Navbar, Container, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
-const Nav = () => {
+const Menu = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to="/dashboard">Inicio</NavLink>
-        </li>
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <Navbar.Brand>Gestión de Proyectos</Navbar.Brand>
 
-        <li>
-          <NavLink to="/proyectos">Proyectos</NavLink>
-        </li>
+        <Nav className="me-auto">
+          <Nav.Link as={NavLink} to="/dashboard">
+            Inicio
+          </Nav.Link>
 
-        <li>
-          <NavLink to="/perfil">Perfil</NavLink>
-        </li>
-      </ul>
-    </nav>
+          <Nav.Link as={NavLink} to="/proyectos">
+            Proyectos
+          </Nav.Link>
+
+          <Nav.Link as={NavLink} to="/perfil">
+            Perfil
+          </Nav.Link>
+        </Nav>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Nav;
+export default Menu;

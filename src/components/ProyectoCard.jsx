@@ -1,43 +1,40 @@
-const ProyectoCard = ({proyecto,onEliminar,onVerDetalle}) => {
+import { Card, Button, Badge } from "react-bootstrap";
 
-    const {id,titulo,categoria,estado} = proyecto;
+const ProyectoCard = ({ proyecto, onEliminar, onVerDetalle }) => {
+  const { id, titulo, categoria, estado } = proyecto;
 
-    return (
-    <article className="card">
+  return (
+    <Card className="mb-3">
+      <Card.Body>
+        <Card.Title>{titulo}</Card.Title>
 
-        <div className="card-content">
+        <Card.Text>
+          <strong>Categoría:</strong> {categoria}
+        </Card.Text>
 
-            <h3>
-                {titulo}
-            </h3>
+        <Badge bg={estado === "Finalizado" ? "success" : "warning"}>
+          {estado}
+        </Badge>
 
-            <p> 
-                Categoría: {categoria} 
-            </p>
-            <span className={`badge ${
-                estado === "Finalizado"
-                    ? "done"
-                    : "process"
-            }`}>
-                {estado}
-            </span>
-
-        </div>
-
-        <div className="card-actions">
-
-        <button className="btn-detail"onClick={() => onVerDetalle(proyecto)} >
+        <div className="mt-3">
+          <Button
+            variant="primary"
+            className="me-2"
+            onClick={() => onVerDetalle(proyecto)}
+          >
             Ver Detalle
-        </button>
+          </Button>
 
-        <button className="btn-delete"onClick={() => onEliminar(id)} >
+          <Button
+            variant="danger"
+            onClick={() => onEliminar(id)}
+          >
             Eliminar
-        </button>
-
+          </Button>
         </div>
-
-    </article>
-);
+      </Card.Body>
+    </Card>
+  );
 };
 
 export default ProyectoCard;

@@ -1,11 +1,11 @@
+import { Alert } from "react-bootstrap";
+
 const RegistroActividad = ({ fecha }) => {
-
   return (
-    <div>
-      <p>{fecha}</p>
-    </div>
+    <Alert variant="info" className="mt-3">
+      {fecha}
+    </Alert>
   );
-
 };
 
 export default RegistroActividad;

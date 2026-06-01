@@ -4,6 +4,7 @@ import ProyectoCard from "../components/ProyectoCard";
 import DetalleProyecto from "../components/DetalleProyecto";
 import RegistroActividad from "../components/RegistroActividad";
 import FormularioProyecto from "../components/FormularioProyecto";
+import { Container, Row, Col, Form } from "react-bootstrap";
 
 const ListaProyectos = () => {
 
@@ -77,34 +78,44 @@ const ListaProyectos = () => {
         );
     }
     return (
-        <div className="container">
-            <h2>Gestión de Proyectos Educativos</h2>
-            <FormularioProyecto onAgregarProyecto={handleAgregarProyecto} />
-            <input
-                type="text"
-                placeholder="Buscar proyecto..."
-                value={busqueda}
-                onChange={handleBuscar}
-            />
+  <Container className="mt-4">
+    <h2 className="mb-4">Gestión de Proyectos Educativos</h2>
 
-            <section className="grid-proyectos">
-                {proyectosFiltrados.map((p) => (
-                  <ProyectoCard
-                    key={p.id}
-                    proyecto={p}
-                    onEliminar={handleEliminar}
-                    onVerDetalle={setProyectoSeleccionado}
-                 />
-                ))}
-            </section>
+    <FormularioProyecto
+      onAgregarProyecto={handleAgregarProyecto}
+    />
 
-            {
-    ultimaActualizacion && (
-        <RegistroActividad fecha={ultimaActualizacion} />
-    )
-}
-        </div>
-    );
+    <Form.Control
+      type="text"
+      placeholder="Buscar proyecto..."
+      value={busqueda}
+      onChange={handleBuscar}
+      className="my-4"
+    />
+
+    <Row>
+      {proyectosFiltrados.map((p) => (
+        <Col
+          key={p.id}
+          xs={12}
+          md={6}
+          lg={4}
+          className="mb-3"
+        >
+          <ProyectoCard
+            proyecto={p}
+            onEliminar={handleEliminar}
+            onVerDetalle={setProyectoSeleccionado}
+          />
+        </Col>
+      ))}
+    </Row>
+
+    {ultimaActualizacion && (
+      <RegistroActividad fecha={ultimaActualizacion} />
+    )}
+  </Container>
+);
 };
 
 export default ListaProyectos;

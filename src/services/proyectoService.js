@@ -151,10 +151,16 @@ const buscarProyecto = (texto) => {
         p.titulo.toLowerCase().includes(texto.toLowerCase())
     );
 };
+const obtenerProyectoPorId = (id) => {
+    return proyectos.find(
+        p => p.id === Number(id)
+    );
+};
 
 export default {
     obtenerProyectos,
     agregarProyecto,
     eliminarProyecto,
-    buscarProyecto
+    buscarProyecto,
+    obtenerProyectoPorId
 };

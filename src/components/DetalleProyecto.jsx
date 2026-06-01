@@ -1,92 +1,63 @@
-const DetalleProyecto = ({
-    proyecto,
-    onVolver
-}) => {
-if (!proyecto) {
-   return null;
-}
-    const {
+import { Card, Button, ListGroup } from "react-bootstrap";
+
+const DetalleProyecto = ({ proyecto, onVolver }) => {
+  if (!proyecto) {
+    return null;
+  }
+
+  const {
     titulo,
     categoria,
     estado,
     descripcion = "Sin descripción",
     recursos = [],
-    equipo = []
-} = proyecto;
+    equipo = [],
+  } = proyecto;
 
-    return (
+  return (
+    <Card className="mt-4">
+      <Card.Body>
+        <Card.Title>{titulo}</Card.Title>
 
-        <section className="detalle">
+        <Card.Text>{descripcion}</Card.Text>
 
-            <h2>
-                {titulo}
-            </h2>
+        <Card.Text>
+          Categoría: {categoria}
+        </Card.Text>
 
-            <p>
-                {descripcion}
-            </p>
+        <Card.Text>
+          Estado: {estado}
+        </Card.Text>
 
-            <p>
-                Este proyecto educativo busca mejorar la experiencia de los
-                estudiantes mediante herramientas digitales y recursos interactivos.
-            </p>
+        <h4>Recursos</h4>
 
-            <p>
-                Categoría: {categoria}
-            </p>
+        <ListGroup className="mb-3">
+          {recursos.map((r, index) => (
+            <ListGroup.Item key={index}>
+              {r}
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
 
-            <p>
-                Estado: {estado}
-            </p>
+        <h4>Equipo</h4>
 
-            <h3>
-                Recursos
-            </h3>
+        <ListGroup className="mb-3">
+          {equipo.map((persona, index) => (
+            <ListGroup.Item key={index}>
+              {persona.nombre} - {persona.rol}
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
 
-            <ul>
-
-                {recursos?.map((r, index) => (
-
-                    <li key={index}>
-                        {r}
-                    </li>
-
-                ))}
-
-            </ul>
-
-            <h3>
-                Equipo
-            </h3>
-
-            <ul>
-
-                {equipo?.map((persona, index) => (
-
-    <li key={index}>
-
-        {persona.nombre}
-        {" - "}
-        {persona.rol}
-
-    </li>
-
-))}
-
-            </ul>
-
-            <button
-                className="btn-back"
-                onClick={onVolver}
-            >
-
-                Volver
-
-            </button>
-
-        </section>
-
-    );
+        <Button
+          variant="secondary"
+          onClick={onVolver}
+        >
+          Volver
+        </Button>
+      </Card.Body>
+    </Card>
+  );
 };
 
 export default DetalleProyecto;

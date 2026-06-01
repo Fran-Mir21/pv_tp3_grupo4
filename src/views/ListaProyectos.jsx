@@ -79,7 +79,9 @@ const ListaProyectos = () => {
     }
     return (
   <Container className="mt-4">
-    <h2 className="mb-4">Gestión de Proyectos Educativos</h2>
+    <h2 className="mb-4 text-white">
+  Gestión de Proyectos Educativos
+</h2>
 
     <FormularioProyecto
       onAgregarProyecto={handleAgregarProyecto}

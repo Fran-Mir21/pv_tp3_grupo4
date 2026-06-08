@@ -11,7 +11,7 @@ const ListaProyectos = () => {
         proyectoService.obtenerProyectos()
     );
     const [ultimaActualizacion, setUltimaActualizacion] = useState("");
-    const primeraCarga = useRef(true);
+    const proyectosIniciales = useRef(proyectos.length);
     const [busqueda, setBusqueda] = useState("");
 
     const proyectosFiltrados = useMemo(() => {
@@ -22,8 +22,9 @@ const ListaProyectos = () => {
     }, [proyectos, busqueda]);
 
     useEffect(() => {
-        if (primeraCarga.current) {
-            primeraCarga.current = false;
+        // Control estricto: si la cantidad actual de proyectos es igual a la del inicio,
+        // significa que la página recién se monta o se usó el filtro. Frenamos aquí.
+        if (proyectos.length === proyectosIniciales.current) {
             return;
         }
 
@@ -42,9 +43,11 @@ const ListaProyectos = () => {
 
     }, [proyectos]);
 
-    const handleEliminar = (id) => {
+   const handleEliminar = (id) => {
         proyectoService.eliminarProyecto(id);
-        setProyectos(proyectoService.obtenerProyectos());
+        const nuevosProyectos = proyectoService.obtenerProyectos();
+        proyectosIniciales.current = nuevosProyectos.length; // Sincroniza la referencia
+        setProyectos(nuevosProyectos);
     };
 
     const handleBuscar = (e) => {
@@ -54,7 +57,9 @@ const ListaProyectos = () => {
 
     const handleAgregarProyecto = (nuevoProyecto) => {
         proyectoService.agregarProyecto(nuevoProyecto);
-        setProyectos(proyectoService.obtenerProyectos());
+        const nuevosProyectos = proyectoService.obtenerProyectos();
+        proyectosIniciales.current = nuevosProyectos.length; // Sincroniza la referencia
+        setProyectos(nuevosProyectos);
     };
     return (
   <Container className="mt-4">

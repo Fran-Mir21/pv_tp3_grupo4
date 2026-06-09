@@ -11,7 +11,7 @@ const ListaProyectos = () => {
         proyectoService.obtenerProyectos()
     );
     const [ultimaActualizacion, setUltimaActualizacion] = useState("");
-    const proyectosIniciales = useRef(proyectos.length);
+    const cantidadAnteriorProyectos = useRef(proyectos.length);
     const [busqueda, setBusqueda] = useState("");
 
     const proyectosFiltrados = useMemo(() => {
@@ -22,31 +22,27 @@ const ListaProyectos = () => {
     }, [proyectos, busqueda]);
 
     useEffect(() => {
-        // Control estricto: si la cantidad actual de proyectos es igual a la del inicio,
-        // significa que la página recién se monta o se usó el filtro. Frenamos aquí.
-        if (proyectos.length === proyectosIniciales.current) {
-            return;
-        }
+      if (proyectos.length === cantidadAnteriorProyectos.current) {
+        return;
+      }
 
-        const ahora = new Date();
+      const ahora = new Date();
+      const fechaFormateada =
+        `${ahora.getDate().toString().padStart(2, "0")}/` +
+        `${(ahora.getMonth() + 1).toString().padStart(2, "0")}/` +
+        `${ahora.getFullYear()} a las ` +
+        `${ahora.getHours().toString().padStart(2, "0")}:` +
+        `${ahora.getMinutes().toString().padStart(2, "0")} hs.`;
 
-        const fechaFormateada =
-            `${ahora.getDate().toString().padStart(2, "0")}/` +
-            `${(ahora.getMonth() + 1).toString().padStart(2, "0")}/` +
-            `${ahora.getFullYear()} a las ` +
-            `${ahora.getHours().toString().padStart(2, "0")}:` +
-            `${ahora.getMinutes().toString().padStart(2, "0")} hs.`;
-
-        setUltimaActualizacion(
-            `Última actualización de la lista: ${fechaFormateada}`
-        );
-
+      setUltimaActualizacion(
+        `Última actualización de la lista: ${fechaFormateada}`
+      );
+      cantidadAnteriorProyectos.current = proyectos.length;
     }, [proyectos]);
 
    const handleEliminar = (id) => {
         proyectoService.eliminarProyecto(id);
         const nuevosProyectos = proyectoService.obtenerProyectos();
-        proyectosIniciales.current = nuevosProyectos.length; // Sincroniza la referencia
         setProyectos(nuevosProyectos);
     };
 
@@ -58,7 +54,6 @@ const ListaProyectos = () => {
     const handleAgregarProyecto = (nuevoProyecto) => {
         proyectoService.agregarProyecto(nuevoProyecto);
         const nuevosProyectos = proyectoService.obtenerProyectos();
-        proyectosIniciales.current = nuevosProyectos.length; // Sincroniza la referencia
         setProyectos(nuevosProyectos);
     };
     return (

@@ -1,28 +1,13 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Card, Button, ListGroup, Alert } from "react-bootstrap";
-import { useEffect, useState } from "react";
 import proyectoService from "../services/proyectoService";
 
 const DetalleProyecto = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [proyecto, setProyecto] = useState(null);
-  const [error, setError] = useState(false);
+  const proyecto = proyectoService.obtenerProyectoPorId(id);
 
-  useEffect(() => {
-    // Obtener el proyecto desde el servicio usando el id de la URL
-    const proyectos = proyectoService.obtenerProyectos();
-    const proyectoEncontrado = proyectos.find((p) => p.id === parseInt(id));
-    
-    if (proyectoEncontrado) {
-      setProyecto(proyectoEncontrado);
-      setError(false);
-    } else {
-      setError(true);
-    }
-  }, [id]);
-
-  if (error) {
+  if (!proyecto) {
     return (
       <Container className="mt-4">
         <Alert variant="danger">
@@ -31,14 +16,6 @@ const DetalleProyecto = () => {
         <Button variant="primary" onClick={() => navigate("/proyectos")}>
           Volver a la Lista de Proyectos
         </Button>
-      </Container>
-    );
-  }
-
-  if (!proyecto) {
-    return (
-      <Container className="mt-4">
-        <p>Cargando...</p>
       </Container>
     );
   }

@@ -1,21 +1,46 @@
-import React from 'react';
-import { UsuarioProvider } from './context/UsuarioContext'; // Importamos el proveedor que creamos recién
-import Header from './components/header';
-import PerfilUsuario from './views/PerfilUsuario';
-// Importá acá el resto de tus vistas o componentes si los tenés (ej: Dashboard, ListaProyectos, etc.)
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+import { UsuarioProvider } from "./context/UsuarioContext";
+
+import Header from "./components/Header";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+
+import Dashboard from "./views/Dashboard";
+import ListaProyectos from "./views/ListaProyectos";
+import DetalleProyecto from "./views/DetalleProyecto";
+import PerfilUsuario from "./views/PerfilUsuario";
+
+import "./css/styles.css";
+import "./css/listaProyectos.css";
 
 function App() {
   return (
-    // 1. Envolvemos toda la aplicación con el Proveedor Global
     <UsuarioProvider>
-      <div className="app-container">
-        {/* 2. Tu Header actual (que en el Punto 2 haremos dinámico) */}
+      <div
+        className="app-container"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        }}
+      >
         <Header />
-        
-        <main>
-          {/* 3. Tus vistas o Rutas. Al estar acá dentro, ya tienen acceso directo al contexto */}
-          <PerfilUsuario />
+
+        <Nav />
+
+        <main style={{ flex: 1 }}>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/proyectos" element={<ListaProyectos />} />
+            <Route path="/proyectos/:id" element={<DetalleProyecto />} />
+            <Route path="/perfil" element={<PerfilUsuario />} />
+          </Routes>
         </main>
+
+        <Footer />
       </div>
     </UsuarioProvider>
   );

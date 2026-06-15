@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 // 1. Creamos el contexto global
 export const UsuarioContext = createContext();
@@ -14,7 +14,16 @@ const usuarioInicial = {
 // 2. Creamos el Proveedor del contexto (Provider)
 export const UsuarioProvider = ({ children }) => {
   // Estado centralizado que guardará al usuario actual
-  const [usuario, setUsuario] = useState(usuarioInicial);
+  // Inicializa desde localStorage si existe, sino usa usuarioInicial
+  const [usuario, setUsuario] = useState(() => {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    return usuarioGuardado ? JSON.parse(usuarioGuardado) : usuarioInicial;
+  });
+
+  // useEffect que guarda automáticamente los cambios en localStorage
+  useEffect(() => {
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+  }, [usuario]);
 
   // Función global que permitirá a la vista de perfil editar estos datos
   const actualizarPerfil = (nuevosDatos) => {
